@@ -42,10 +42,10 @@ public class CustomerController {
     }
 
     @GetMapping("/customers")
-    public ResponseEntity<List<CustomerDto>> getAllCustomers(Authentication auth, JwtAuthenticationToken token) {
+    public ResponseEntity<List<CustomerDto>> getAllCustomers() {
 
 
-        System.out.println("auth Name :"+auth.getName());
+      /**  System.out.println("auth Name :"+auth.getName());
         System.out.println("auth details :"+auth.getDetails());
         List<String> roles = auth.getAuthorities()
                 .stream()
@@ -66,6 +66,7 @@ public class CustomerController {
             System.out.println(scope);
 
         }
+       */
         return new ResponseEntity<>(customerService.getAllCustomers(), HttpStatus.OK);
     }
 }
