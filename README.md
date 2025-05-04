@@ -1,16 +1,29 @@
-# Spring Boot With OAUTH Using KeyClock
+# 🛡️ Spring Boot with OAuth2 Using Keycloak
 
-### the purpose of this Demo is to authenticate our spring boot applicaiton using OAUTH 
-### to establish that we need to a token provider like keyclock
+This project demonstrates how to secure a Spring Boot REST API using **OAuth2** with **Keycloak** as the identity and token provider.
 
-## First Step (Running Keycloak using Docker)
+---
 
-### use the below command to install and run keycloak in your machine  and make sure that docker is up and running 
+## ✅ Objective
 
-```angular2html
-docker run --name keycloak -p 8080:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:26.2 start-dev
+The goal of this demo is to:
+- Secure Spring Boot APIs using OAuth2
+- Use Keycloak to issue and validate JWT tokens
+- Enforce authentication and authorization in the application
+
+---
+
+## 🚀 Step 1: Run Keycloak via Docker
+
+Ensure Docker is installed and running on your machine. Use the command below to start Keycloak in development mode:
+
+```bash
+docker run --name keycloak -p 8080:8080 \
+  -e KEYCLOAK_ADMIN=admin \
+  -e KEYCLOAK_ADMIN_PASSWORD=admin \
+  quay.io/keycloak/keycloak:26.2 start-dev
+
 ```
-
 ## Second Step  : Create a realm in keycloak 
 
 ## Third Step : Create a client id following the below configuration 
@@ -25,7 +38,7 @@ Service accounts roles : ON
 
 ## 4th step try to get a token by calling the below CURL:
 
-```angular2html
+```
 curl --location 'http://localhost:8080/realms/{your realm name}/protocol/openid-connect/token' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
 --header 'Cookie: JSESSIONID=7B05C5BD99CEE73DC950D126775DEEF8' \
@@ -51,7 +64,7 @@ curl --location 'http://localhost:8080/realms/{your realm name}/protocol/openid-
 
 ## 6th step we need to create a security configuration class to enable authentication on of our APIs 
 
-```angular2html
+```
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
@@ -69,9 +82,9 @@ public class SecurityConfig {
 
 ```
 
-## 7th stpe we need to configure the issuer URL in our spring boot application properties to allow the applicaiton to validate the token 
+## 7th step we need to configure the issuer URL in our spring boot application properties to allow the applicaiton to validate the token 
 
-```angular2html
+```
 spring.security.oauth2.resourceserver.jwt.issuer-uri=http://localhost:8080/realms/demo
 ```
 
